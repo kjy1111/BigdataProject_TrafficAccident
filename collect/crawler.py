@@ -2,7 +2,7 @@ import json
 from .api import api
 
 
-def preprocess_tad(data):
+def preprocess_trafficaccident(data):
     data['발생년'] = data['year']          # 발생년
     del data['year']
 
@@ -83,7 +83,30 @@ def preprocess_tad(data):
 
     data['위도'] = data['grd_la']          # 위도
     del data['grd_la']
-    return data
 
-def crawling_tad():
-    pass
+
+def crawling_trafficaccident():
+    results = []
+    d = {}
+
+    for year in range(2012, 2013):
+        for items in api.trafficaccident_fetch_tad_info(searchYear=year, siDo='1100', guGun='1117'):
+            # print(items)
+            preprocess_trafficaccident(items)
+            # print(items)
+
+            results += items
+
+        filename = '%s/trafficaccident_%s.json' % ('__results__/crawling', year)
+
+    # save data to file
+        with open(filename, 'w', encoding='utf-8') as outfile:
+            json_string = json.dumps(items)
+            outfile.write(json_string)
+
+    return filename
+
+    # b = {}
+    # for a in item:
+    #     b = cc.preprocess_tad(a)
+    #     result.append(b)
