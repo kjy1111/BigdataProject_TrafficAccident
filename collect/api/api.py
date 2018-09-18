@@ -18,4 +18,11 @@ def trafficaccident_fetch_tad_info(searchYear, siDo, guGun):
     json_searchResult = json_result.get('searchResult')
     json_accidentDeath = json_searchResult.get('accidentDeath')
 
+    # result = []
+    # b = {}
+    # for i in json_accidentDeath:
+    #     b = cc.preprocess_tad(a)
+    #     result.append(b)
+    # print(result)
+
     return json_accidentDeath
